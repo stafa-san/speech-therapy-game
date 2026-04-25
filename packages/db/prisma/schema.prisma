@@ -1,0 +1,225 @@
+// Habla Juega — Postgres schema (Neon serverless via Prisma).
+// See Project.md §5 for invariants and Project.md §8 for COPPA constraints
+// (most important: AssignmentSession is aggregate-only — no IP, UA, geo).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // Direct connection used by `prisma migrate` — bypasses pgbouncer.
+  directUrl = env("DIRECT_URL")
+}
+
+enum Locale {
+  en
+  es
+}
+
+enum PlanTier {
+  free
+  pro
+}
+
+enum Position {
+  initial
+  medial
+  final
+  mixed
+}
+
+enum SubscriptionStatus {
+  active
+  trialing
+  past_due
+  canceled
+  incomplete
+  incomplete_expired
+  unpaid
+  paused
+}
+
+model Therapist {
+  id               String    @id @default(cuid())
+  // Clerk handles auth; we mirror minimal identity here.
+  clerkUserId      String    @unique
+  email            String    @unique
+  fullName         String
+  locale           Locale    @default(en)
+  stripeCustomerId String?   @unique
+  planTier         PlanTier  @default(free)
+  // SLP credential string the therapist enters on signup, used as a "reviewer" badge
+  // on lists they author. e.g., "Maria López, M.S., CCC-SLP". Optional.
+  credential       String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  wordLists    WordList[]
+  assignments  Assignment[]
+  subscription Subscription?
+  auditLogs    AuditLog[]
+}
+
+model Phoneme {
+  id            Int    @id
+  // Display symbol — e.g., "/r/", "/rr/", "/s/", "L-blends"
+  symbol        String @unique
+  ipa           String
+  displayNameEs String
+  displayNameEn String
+  // Manual ordering for the phoneme picker.
+  sortOrder     Int
+
+  wordLists WordList[]
+
+  @@index([sortOrder])
+}
+
+model WordList {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  phonemeId      Int
+  phoneme        Phoneme  @relation(fields: [phonemeId], references: [id])
+  position       Position
+  // 1 = simple CV/CVCV, 2 = CVC/multisyllabic, 3 = blends/complex.
+  difficultyTier Int
+  // True for SLP-vetted content shipped with the product. Read-only to therapists.
+  isSeed         Boolean  @default(false)
+  isReviewed     Boolean  @default(false)
+  reviewer       String?
+  // Null when isSeed=true; non-null for therapist-owned custom lists.
+  ownerTherapistId String?
+  ownerTherapist   Therapist? @relation(fields: [ownerTherapistId], references: [id], onDelete: Cascade)
+  locale         String   @default("es")
+  // Marker for placeholder data — see Project.md §2.4. Production seed
+  // refuses to run if any rows have this set.
+  isDummyData    Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  words       Word[]
+  assignments Assignment[]
+
+  @@index([phonemeId, position, difficultyTier])
+  @@index([ownerTherapistId])
+  @@index([isSeed, isReviewed])
+}
+
+model Word {
+  id           String   @id @default(cuid())
+  wordListId   String
+  wordList     WordList @relation(fields: [wordListId], references: [id], onDelete: Cascade)
+  text         String
+  textEn       String?
+  ipa          String?
+  position     Position
+  imageUrl     String?
+  audioUrl     String?
+  dialectNotes String?
+  sortOrder    Int
+
+  @@index([wordListId, sortOrder])
+}
+
+model Game {
+  id         Int     @id
+  slug       String  @unique
+  nameEs     String
+  nameEn     String
+  // Each game declares the trial range it supports — picker uses this.
+  minTrials  Int
+  maxTrials  Int
+  isFreeTier Boolean @default(false)
+  // Whether the game is currently surfaced in the picker. Lets us release/dark-launch.
+  isEnabled  Boolean @default(true)
+  sortOrder  Int     @default(0)
+
+  assignments Assignment[]
+
+  @@index([sortOrder])
+}
+
+model Assignment {
+  id           String     @id @default(cuid())
+  // URL-safe random token (~22 chars from randomBytes(16)). Only secret in the share URL.
+  token        String     @unique
+  therapistId  String
+  therapist    Therapist  @relation(fields: [therapistId], references: [id], onDelete: Cascade)
+  wordListId   String
+  wordList     WordList   @relation(fields: [wordListId], references: [id])
+  gameId       Int
+  game         Game       @relation(fields: [gameId], references: [id])
+  // Therapist-only label — never sent to /play route. See §8.
+  studentLabel String?
+  createdAt    DateTime   @default(now())
+  expiresAt    DateTime?
+  isRevoked    Boolean    @default(false)
+
+  sessions AssignmentSession[]
+
+  @@index([therapistId, createdAt])
+  @@index([token, isRevoked])
+}
+
+/// Aggregate-only. Anonymous. NEVER store IP, UA, fingerprint, or geo. See Project.md §8.
+/// Auto-deleted by /api/cron/delete-old-sessions after 90 days.
+model AssignmentSession {
+  id              String     @id @default(cuid())
+  assignmentId    String
+  assignment      Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  startedAt       DateTime   @default(now())
+  completedAt     DateTime?
+  trialsCompleted Int        @default(0)
+
+  @@index([assignmentId, startedAt])
+  @@index([startedAt])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  therapistId          String             @unique
+  therapist            Therapist          @relation(fields: [therapistId], references: [id], onDelete: Cascade)
+  stripeSubscriptionId String             @unique
+  status               SubscriptionStatus
+  currentPeriodEnd     DateTime
+  priceId              String
+  cancelAtPeriodEnd    Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@index([status])
+}
+
+/// Therapist-side audit trail. Captures non-trivial actions (assignment created/revoked,
+/// list deleted, locale changed) so we can answer support questions without log diving.
+/// COPPA-safe: only stores therapist actions, never anything child-side.
+model AuditLog {
+  id          String    @id @default(cuid())
+  therapistId String
+  therapist   Therapist @relation(fields: [therapistId], references: [id], onDelete: Cascade)
+  // e.g., "assignment.created", "wordlist.deleted", "locale.changed"
+  action      String
+  // JSON payload describing the action. Avoid PII beyond what the therapist owns.
+  payload     Json?
+  createdAt   DateTime  @default(now())
+
+  @@index([therapistId, createdAt])
+  @@index([action, createdAt])
+}
+
+/// Idempotency log for inbound Stripe / Clerk webhooks. We dedupe on (provider, eventId)
+/// so retries don't re-apply state changes.
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  provider  String
+  eventId   String
+  receivedAt DateTime @default(now())
+  // Optional metadata for debugging.
+  type      String?
+
+  @@unique([provider, eventId])
+  @@index([receivedAt])
+}
