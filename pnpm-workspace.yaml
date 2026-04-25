@@ -1,0 +1,4 @@
+packages:
+  - 'apps/web'
+  - 'packages/*'
+  # apps/mobile is intentionally excluded — Expo doesn't play well with workspaces (Phase 8+).

@@ -1,0 +1,9 @@
+# Default owner for everything in the repo.
+*           @stafa-san
+
+# COPPA-sensitive paths — extra scrutiny required.
+/apps/web/src/app/play/                  @stafa-san
+/apps/web/src/app/api/play/              @stafa-san
+/apps/web/src/features/player/           @stafa-san
+/packages/api/src/routers/play.ts        @stafa-san
+/docs/coppa-compliance.md                @stafa-san

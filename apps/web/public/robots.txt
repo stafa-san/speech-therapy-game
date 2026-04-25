@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Family-facing player route never appears in search.
+Disallow: /play/
+Disallow: /api/
+
+Sitemap: https://hablajuega.com/sitemap.xml
