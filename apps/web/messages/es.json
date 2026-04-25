@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "title": "Habla Juega",
+    "titleTemplate": "%s · Habla Juega",
+    "description": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa."
+  },
+  "landing": {
+    "preLaunchBadge": "Pre-launch · MVP en construcción",
+    "title": "Habla Juega",
+    "tagline": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa.",
+    "subTagline": "Spanish-first speech therapy practice — Duolingo-grade games, SLP-vetted word lists.",
+    "ctaSignIn": "Inicia sesión",
+    "ctaRepo": "Repositorio"
+  },
+  "common": {
+    "back": "Volver",
+    "next": "Siguiente",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "loading": "Cargando…",
+    "retry": "Reintentar"
+  },
+  "errors": {
+    "label": "Error",
+    "title": "Algo salió mal",
+    "description": "Tuvimos un problema cargando esta página. Inténtalo de nuevo.",
+    "ref": "Referencia: {digest}"
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o fue movida.",
+    "cta": "Volver al inicio"
+  },
+  "locale": {
+    "switch": "Cambiar idioma",
+    "es": "Español",
+    "en": "English"
+  }
+}
