@@ -10,6 +10,17 @@ import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { trpc } from '@/lib/trpc/client';
 
+/**
+ * The api treats unauth + no-database as terminal errors so the therapist
+ * surface fails fast in production. In demo mode (no Clerk, no DB) we want
+ * to render an instructive empty state instead. This helper distinguishes
+ * "real failure" from "expected demo state".
+ */
+function isDemoModeError(err: unknown): boolean {
+  const code = (err as { data?: { code?: string } })?.data?.code;
+  return code === 'UNAUTHORIZED' || code === 'NOT_FOUND' || code === 'INTERNAL_SERVER_ERROR';
+}
+
 interface AssignmentRow {
   id: string;
   token: string;
@@ -23,8 +34,11 @@ interface AssignmentRow {
 export default function AssignmentsPage() {
   const t = useTranslations('assignments');
   const utils = trpc.useUtils();
-  const listQuery = trpc.assignments.list.useQuery();
+  const listQuery = trpc.assignments.list.useQuery(undefined, {
+    retry: false,
+  });
   const data = listQuery.data as AssignmentRow[] | undefined;
+  const isDemo = listQuery.isError && isDemoModeError(listQuery.error);
   const revokeMutation = trpc.assignments.revoke.useMutation({
     onSuccess: () => utils.assignments.list.invalidate(),
     onError: () => toast.error(t('errors.revoke')),
@@ -52,6 +66,12 @@ export default function AssignmentsPage() {
             <Skeleton key={i} className="h-20" />
           ))}
         </div>
+      ) : isDemo ? (
+        <Card className="text-muted-foreground space-y-2 p-6 text-center">
+          <Send className="text-muted-foreground/60 mx-auto size-6" />
+          <p className="mt-2 font-medium">{t('demoMode.title')}</p>
+          <p className="text-xs">{t('demoMode.description')}</p>
+        </Card>
       ) : listQuery.isError ? (
         <Card className="text-muted-foreground p-6">{t('errors.list')}</Card>
       ) : (data?.length ?? 0) === 0 ? (

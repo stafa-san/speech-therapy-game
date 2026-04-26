@@ -1,11 +1,14 @@
-// Therapist surface layout — middleware enforces the auth check; this
-// component just renders the chrome.
+// Therapist surface layout — proxy enforces the Clerk gate when Clerk
+// keys are configured; without keys (demo mode) the gate no-ops and we
+// surface a "Modo demo" badge here so the previewer knows nothing is
+// persisted.
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { BookOpen, Home, Send, Settings as SettingsIcon } from 'lucide-react';
 
 import { LocaleSwitch } from '@/components/locale-switch';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -19,6 +22,8 @@ const NAV: NavItem[] = [
   { href: '/settings', icon: SettingsIcon, key: 'settings' },
 ];
 
+const isDemoMode = !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 export default function TherapistLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid min-h-dvh grid-cols-[14rem_1fr]">
@@ -26,6 +31,7 @@ export default function TherapistLayout({ children }: { children: React.ReactNod
         <Link href="/dashboard" className="text-lg font-bold tracking-tight">
           Habla Juega
         </Link>
+        {isDemoMode ? <DemoBadge /> : null}
         <Separator className="my-2" />
         <TherapistNav />
         <div className="mt-auto flex items-center justify-between">
@@ -34,6 +40,16 @@ export default function TherapistLayout({ children }: { children: React.ReactNod
       </aside>
       <main className="bg-background overflow-y-auto p-8">{children}</main>
     </div>
+  );
+}
+
+function DemoBadge() {
+  const t = useTranslations('demo');
+  return (
+    <Badge variant="outline" className="border-warning text-warning w-fit gap-1 text-xs">
+      <span className="bg-warning size-1.5 rounded-full" />
+      {t('badge')}
+    </Badge>
   );
 }
 

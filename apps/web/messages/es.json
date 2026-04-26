@@ -10,7 +10,11 @@
     "tagline": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa.",
     "subTagline": "Spanish-first speech therapy practice — Duolingo-grade games, SLP-vetted word lists.",
     "ctaSignIn": "Inicia sesión",
-    "ctaRepo": "Repositorio"
+    "ctaPlayDemo": "Probar el juego",
+    "ctaBrowseLists": "Ver listas",
+    "ctaTherapistView": "Vista de logopeda",
+    "ctaRepo": "Repositorio",
+    "demoNote": "Modo demo · sin auth ni base de datos. Datos de muestra; ideal para revisar el flujo."
   },
   "common": {
     "back": "Volver",
@@ -42,6 +46,9 @@
     "lists": "Listas",
     "assignments": "Asignaciones",
     "settings": "Ajustes"
+  },
+  "demo": {
+    "badge": "Modo demo"
   },
   "lists": {
     "title": "Listas de palabras",
@@ -89,6 +96,10 @@
   "assignments": {
     "pageTitle": "Asignaciones",
     "pageDescription": "Enlaces que has compartido con familias.",
+    "demoMode": {
+      "title": "Modo demo",
+      "description": "Las asignaciones requieren auth (Clerk) y base de datos (Neon). Configúralos en docs/deployment.md y vuelve."
+    },
     "sendCta": "Mandar a familia",
     "dialogTitle": "Compartir con familia",
     "dialogDescription": "Crea un enlace único para que la familia juegue desde casa.",

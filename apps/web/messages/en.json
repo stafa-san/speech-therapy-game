@@ -10,7 +10,11 @@
     "tagline": "Spanish-first articulation practice ready in seconds. SLP-vetted word lists with animated games families can play at home.",
     "subTagline": "Práctica de articulación en español, con juegos animados al estilo Duolingo.",
     "ctaSignIn": "Sign in",
-    "ctaRepo": "Repository"
+    "ctaPlayDemo": "Try the game",
+    "ctaBrowseLists": "Browse lists",
+    "ctaTherapistView": "Therapist view",
+    "ctaRepo": "Repository",
+    "demoNote": "Demo mode · no auth, no database. Sample data; great for previewing the flow."
   },
   "common": {
     "back": "Back",
@@ -42,6 +46,9 @@
     "lists": "Lists",
     "assignments": "Assignments",
     "settings": "Settings"
+  },
+  "demo": {
+    "badge": "Demo mode"
   },
   "lists": {
     "title": "Word lists",
@@ -89,6 +96,10 @@
   "assignments": {
     "pageTitle": "Assignments",
     "pageDescription": "Links you've shared with families.",
+    "demoMode": {
+      "title": "Demo mode",
+      "description": "Assignments need auth (Clerk) + a database (Neon). Set them up via docs/deployment.md and reload."
+    },
     "sendCta": "Send to family",
     "dialogTitle": "Share with family",
     "dialogDescription": "Create a unique link so the family can play at home.",
