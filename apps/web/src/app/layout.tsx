@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { ClerkProvider } from '@clerk/nextjs';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 
@@ -47,11 +48,13 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+const hasClerkKeys = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
   const messages = await getMessages();
 
-  return (
+  const tree = (
     <html lang={locale} suppressHydrationWarning>
       <body className="min-h-dvh font-sans">
         <NextIntlClientProvider locale={locale} messages={messages}>
@@ -61,4 +64,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </body>
     </html>
   );
+
+  // ClerkProvider requires a publishable key. When unset (e.g., previews
+  // before keys are wired), render without it so the marketing surface
+  // still works.
+  return hasClerkKeys ? <ClerkProvider>{tree}</ClerkProvider> : tree;
 }

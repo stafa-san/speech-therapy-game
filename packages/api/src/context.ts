@@ -1,37 +1,54 @@
-// Context construction. The HTTP handler in apps/web/src/app/api/trpc/[trpc]/route.ts
-// builds a Context from each Request. Auth is wired up properly in PR 7 with Clerk;
-// for now `session` and `therapist` resolve to null on every call, which is
-// the correct behavior for the public routers we have today.
+// Context construction.
+//
+// Auth resolution lives in apps/web (where Clerk runs); the api package
+// stays Next-agnostic. Callers pass an already-resolved userId+sessionId,
+// and we look up the local Therapist row by clerkUserId.
+//
+// Player surface (`/play/[token]`): never authenticated. Callers from that
+// route pass `isPlayRoute: true` and we skip the DB lookup entirely.
 
-import type { Therapist } from '@habla/db';
+import { prisma, type Therapist } from '@habla/db';
 
 export interface Context {
-  /** Clerk session id + userId, or null when anonymous. */
   session: { id: string; userId: string } | null;
-  /** Local therapist row, hydrated from the Clerk userId. Null when anonymous. */
   therapist: Therapist | null;
-  /** Source of the request — used to gate cookie/IP-stripping per Project.md §8. */
   source: 'web' | 'play';
-  /** Headers from the incoming request, for downstream middleware that needs them. */
   headers: Headers;
 }
 
 export interface CreateContextOptions {
   headers: Headers;
-  /** When true, the route is considered the family player surface. Strips
-   *  IP-bearing headers and never resolves a therapist session. */
+  /** Already-resolved Clerk session, if any. apps/web passes this from `auth()`. */
+  session?: { id: string; userId: string } | null;
   isPlayRoute?: boolean;
 }
 
+const hasDatabase = Boolean(process.env.DATABASE_URL);
+
 export async function createContext({
   headers,
+  session,
   isPlayRoute,
 }: CreateContextOptions): Promise<Context> {
-  // PR 7 wires Clerk's `auth()` helper here. Today: anonymous everywhere.
-  return {
+  const baseCtx: Context = {
     session: null,
     therapist: null,
     source: isPlayRoute ? 'play' : 'web',
     headers,
   };
+
+  // Player surface: never resolve a therapist — children don't authenticate.
+  if (isPlayRoute) return baseCtx;
+
+  if (!session?.userId) return baseCtx;
+
+  if (!hasDatabase) {
+    return { ...baseCtx, session };
+  }
+
+  const therapist = await prisma.therapist.findUnique({
+    where: { clerkUserId: session.userId },
+  });
+
+  return { ...baseCtx, session, therapist };
 }
