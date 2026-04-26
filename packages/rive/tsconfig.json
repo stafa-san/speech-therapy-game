@@ -4,7 +4,6 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "preserve",
     "noEmit": true,
-    "types": ["node"],
     "paths": {
       "next/*": ["../../node_modules/next/*"]
     }
