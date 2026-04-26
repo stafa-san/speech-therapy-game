@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { SendToFamilyDialog } from '@/features/assignments/send-to-family-dialog';
 import { trpc } from '@/lib/trpc/client';
 
 interface ListDetailPageProps {
@@ -34,7 +35,7 @@ export default function ListDetailPage({ params }: ListDetailPageProps) {
         <Skeleton className="h-32" />
       ) : listQuery.data ? (
         <>
-          <header className="flex flex-col gap-2">
+          <header className="flex flex-col gap-3">
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{t(`position.${listQuery.data.position}`)}</Badge>
               <Badge variant="outline">T{listQuery.data.difficultyTier}</Badge>
@@ -44,10 +45,15 @@ export default function ListDetailPage({ params }: ListDetailPageProps) {
                 </Badge>
               ) : null}
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">{listQuery.data.name}</h1>
-            {listQuery.data.description ? (
-              <p className="text-muted-foreground">{listQuery.data.description}</p>
-            ) : null}
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight">{listQuery.data.name}</h1>
+                {listQuery.data.description ? (
+                  <p className="text-muted-foreground mt-1">{listQuery.data.description}</p>
+                ) : null}
+              </div>
+              <SendToFamilyDialog wordListId={listQuery.data.id} />
+            </div>
           </header>
 
           <Card>

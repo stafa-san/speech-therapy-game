@@ -86,6 +86,33 @@
       "mixed": "Mezclado"
     }
   },
+  "assignments": {
+    "pageTitle": "Asignaciones",
+    "pageDescription": "Enlaces que has compartido con familias.",
+    "sendCta": "Mandar a familia",
+    "dialogTitle": "Compartir con familia",
+    "dialogDescription": "Crea un enlace único para que la familia juegue desde casa.",
+    "studentLabelField": "Nombre del estudiante (opcional)",
+    "studentLabelPlaceholder": "Ej. María G.",
+    "studentLabelHelp": "Sólo lo verás tú. Nunca se envía a la familia.",
+    "create": "Crear enlace",
+    "creating": "Creando…",
+    "linkLabel": "Enlace para la familia",
+    "linkHelp": "Cópialo y mándalo por correo o mensaje.",
+    "copy": "Copiar",
+    "copied": "Enlace copiado",
+    "done": "Listo",
+    "rowSubtitle": "Para {student} · {sessions} sesión(es)",
+    "rowSubtitleAnon": "Sin etiqueta · {sessions} sesión(es)",
+    "empty": "Aún no has creado ningún enlace.",
+    "revoked": "Revocado",
+    "errors": {
+      "create": "No se pudo crear el enlace.",
+      "copy": "No se pudo copiar el enlace.",
+      "list": "Error cargando asignaciones.",
+      "revoke": "No se pudo revocar el enlace."
+    }
+  },
   "dashboard": {
     "greeting": "Bienvenida",
     "title": "Tu panel",
