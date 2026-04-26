@@ -43,6 +43,76 @@
     "assignments": "Asignaciones",
     "settings": "Ajustes"
   },
+  "lists": {
+    "title": "Listas de palabras",
+    "description": "Explora las listas avaladas por logopedas y selecciona una para asignar."
+  },
+  "player": {
+    "intro": {
+      "title": "¡Vamos a practicar la {phoneme}!",
+      "description": "Toma turnos: tu hijo dice la palabra, tú confirmas y avanza el juego.",
+      "start": "Empezar"
+    },
+    "trial": {
+      "label": "{current} de {total}",
+      "play": "Escuchar",
+      "next": "Siguiente"
+    },
+    "end": {
+      "title": "¡Bien hecho!",
+      "summary": "Completaron {count} palabras.",
+      "again": "Otra vez"
+    }
+  },
+  "wordList": {
+    "open": "Abrir",
+    "wordCount": "{count} palabras",
+    "reviewed": "Revisado por SLP",
+    "previewBadge": "Vista previa",
+    "empty": "No hay listas que coincidan con los filtros.",
+    "backToLists": "Volver a listas",
+    "wordsTitle": "Palabras ({count})",
+    "notFound": "Lista no encontrada.",
+    "filters": {
+      "phoneme": "Sonido",
+      "position": "Posición",
+      "difficulty": "Dificultad",
+      "all": "Todos"
+    },
+    "position": {
+      "initial": "Inicial",
+      "medial": "Medial",
+      "final": "Final",
+      "mixed": "Mezclado"
+    }
+  },
+  "assignments": {
+    "pageTitle": "Asignaciones",
+    "pageDescription": "Enlaces que has compartido con familias.",
+    "sendCta": "Mandar a familia",
+    "dialogTitle": "Compartir con familia",
+    "dialogDescription": "Crea un enlace único para que la familia juegue desde casa.",
+    "studentLabelField": "Nombre del estudiante (opcional)",
+    "studentLabelPlaceholder": "Ej. María G.",
+    "studentLabelHelp": "Sólo lo verás tú. Nunca se envía a la familia.",
+    "create": "Crear enlace",
+    "creating": "Creando…",
+    "linkLabel": "Enlace para la familia",
+    "linkHelp": "Cópialo y mándalo por correo o mensaje.",
+    "copy": "Copiar",
+    "copied": "Enlace copiado",
+    "done": "Listo",
+    "rowSubtitle": "Para {student} · {sessions} sesión(es)",
+    "rowSubtitleAnon": "Sin etiqueta · {sessions} sesión(es)",
+    "empty": "Aún no has creado ningún enlace.",
+    "revoked": "Revocado",
+    "errors": {
+      "create": "No se pudo crear el enlace.",
+      "copy": "No se pudo copiar el enlace.",
+      "list": "Error cargando asignaciones.",
+      "revoke": "No se pudo revocar el enlace."
+    }
+  },
   "dashboard": {
     "greeting": "Bienvenida",
     "title": "Tu panel",
