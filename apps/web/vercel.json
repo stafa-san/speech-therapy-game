@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
-  "buildCommand": "cd ../.. && pnpm turbo run build --filter=web",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile && pnpm --filter @habla/db exec prisma generate",
+  "buildCommand": "cd ../.. && pnpm --filter web build",
   "outputDirectory": ".next",
   "headers": [
     {
