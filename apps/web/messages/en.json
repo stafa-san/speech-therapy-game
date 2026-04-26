@@ -43,6 +43,32 @@
     "assignments": "Assignments",
     "settings": "Settings"
   },
+  "lists": {
+    "title": "Word lists",
+    "description": "Browse SLP-vetted lists and pick one to assign."
+  },
+  "wordList": {
+    "open": "Open",
+    "wordCount": "{count} words",
+    "reviewed": "SLP-reviewed",
+    "previewBadge": "Preview",
+    "empty": "No lists match the filters.",
+    "backToLists": "Back to lists",
+    "wordsTitle": "Words ({count})",
+    "notFound": "List not found.",
+    "filters": {
+      "phoneme": "Sound",
+      "position": "Position",
+      "difficulty": "Difficulty",
+      "all": "All"
+    },
+    "position": {
+      "initial": "Initial",
+      "medial": "Medial",
+      "final": "Final",
+      "mixed": "Mixed"
+    }
+  },
   "dashboard": {
     "greeting": "Welcome back",
     "title": "Your dashboard",

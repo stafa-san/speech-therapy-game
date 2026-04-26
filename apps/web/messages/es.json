@@ -43,6 +43,32 @@
     "assignments": "Asignaciones",
     "settings": "Ajustes"
   },
+  "lists": {
+    "title": "Listas de palabras",
+    "description": "Explora las listas avaladas por logopedas y selecciona una para asignar."
+  },
+  "wordList": {
+    "open": "Abrir",
+    "wordCount": "{count} palabras",
+    "reviewed": "Revisado por SLP",
+    "previewBadge": "Vista previa",
+    "empty": "No hay listas que coincidan con los filtros.",
+    "backToLists": "Volver a listas",
+    "wordsTitle": "Palabras ({count})",
+    "notFound": "Lista no encontrada.",
+    "filters": {
+      "phoneme": "Sonido",
+      "position": "Posición",
+      "difficulty": "Dificultad",
+      "all": "Todos"
+    },
+    "position": {
+      "initial": "Inicial",
+      "medial": "Medial",
+      "final": "Final",
+      "mixed": "Mezclado"
+    }
+  },
   "dashboard": {
     "greeting": "Bienvenida",
     "title": "Tu panel",
