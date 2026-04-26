@@ -17,8 +17,11 @@ interface PlayPageProps {
   params: Promise<{ token: string }>;
 }
 
-// Token shape: randomBytes(16).toString('base64url') = 22 chars URL-safe.
-const TOKEN_RE = /^[A-Za-z0-9_-]{20,64}$/;
+// Production tokens are 22 chars from randomBytes(16).toString('base64url').
+// Demo mode (no DB) accepts any URL-safe string so /play/demo works for
+// previewing without setting up Neon. Once DATABASE_URL is set, the lookup
+// in play.byToken is the gate — short demo tokens won't match a real row.
+const TOKEN_RE = /^[A-Za-z0-9_-]{1,64}$/;
 
 export default async function PlayPage({ params }: PlayPageProps) {
   const { token } = await params;
