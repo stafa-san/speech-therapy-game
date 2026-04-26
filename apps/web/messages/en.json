@@ -36,5 +36,34 @@
     "switch": "Change language",
     "es": "Español",
     "en": "English"
+  },
+  "nav": {
+    "home": "Home",
+    "lists": "Lists",
+    "assignments": "Assignments",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "greeting": "Welcome back",
+    "title": "Your dashboard",
+    "quickPlay": {
+      "title": "Quick play",
+      "description": "Pick a sound and position, choose a game, and send the link in under 30 seconds.",
+      "comingSoon": "Coming soon"
+    },
+    "cards": {
+      "recentAssignments": {
+        "title": "Recent assignments",
+        "description": "Last links you sent to families."
+      },
+      "savedLists": {
+        "title": "Saved lists",
+        "description": "Your SLP-vetted and custom lists."
+      },
+      "usage": {
+        "title": "Activity",
+        "description": "How many times your links were opened this week."
+      }
+    }
   }
 }
