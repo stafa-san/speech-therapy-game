@@ -2,10 +2,12 @@
 //
 // Build-time safety: instantiation is deferred until the first property
 // access. Without this, Next's `next build` page-data collection crashes
-// any route that imports the prisma symbol when DATABASE_URL is unset
-// (deploys without Neon wired up yet, local previews, the Vercel build).
+// any route that imports the prisma symbol when DATABASE_URL is unset.
 //
-// The Proxy is invisible to consumers — `prisma.therapist.findUnique(...)` just works.
+// We type the export as PrismaClient via a Proxy whose target is a real
+// PrismaClient prototype so cross-package TypeScript inference resolves
+// to the same generated types — using `{} as PrismaClient` instead loses
+// inference in consumers that go through the api package.
 
 import { neonConfig } from '@neondatabase/serverless';
 import { PrismaNeon } from '@prisma/adapter-neon';
@@ -40,10 +42,11 @@ function getClient(): PrismaClient {
   return client;
 }
 
-// Lazy proxy: any property access (`prisma.therapist`, `prisma.$disconnect`)
-// instantiates on demand. The empty target is safe because the proxy
-// always defers to the real client.
-export const prisma = new Proxy({} as PrismaClient, {
+// Use the prototype as the proxy target so TypeScript inference picks
+// up PrismaClient's full method types in cross-package consumers.
+const proxyTarget = PrismaClient.prototype as PrismaClient;
+
+export const prisma: PrismaClient = new Proxy(proxyTarget, {
   get(_target, prop, receiver) {
     const client = getClient();
     return Reflect.get(client, prop, receiver);

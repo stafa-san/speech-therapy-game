@@ -86,6 +86,33 @@
       "mixed": "Mixed"
     }
   },
+  "assignments": {
+    "pageTitle": "Assignments",
+    "pageDescription": "Links you've shared with families.",
+    "sendCta": "Send to family",
+    "dialogTitle": "Share with family",
+    "dialogDescription": "Create a unique link so the family can play at home.",
+    "studentLabelField": "Student label (optional)",
+    "studentLabelPlaceholder": "e.g., Maria G.",
+    "studentLabelHelp": "Only you will see this. Never sent to the family.",
+    "create": "Create link",
+    "creating": "Creating…",
+    "linkLabel": "Family link",
+    "linkHelp": "Copy and send via email or message.",
+    "copy": "Copy",
+    "copied": "Link copied",
+    "done": "Done",
+    "rowSubtitle": "For {student} · {sessions} session(s)",
+    "rowSubtitleAnon": "Unlabeled · {sessions} session(s)",
+    "empty": "You haven't created any links yet.",
+    "revoked": "Revoked",
+    "errors": {
+      "create": "Couldn't create the link.",
+      "copy": "Couldn't copy the link.",
+      "list": "Error loading assignments.",
+      "revoke": "Couldn't revoke the link."
+    }
+  },
   "dashboard": {
     "greeting": "Welcome back",
     "title": "Your dashboard",
