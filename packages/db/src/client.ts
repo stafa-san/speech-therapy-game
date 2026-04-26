@@ -1,7 +1,11 @@
-// Singleton Prisma client. In dev, Next.js hot-reloads Server Components and
-// would otherwise spawn a new client per HMR cycle, exhausting connections.
-// In prod (Vercel serverless), we use Neon's serverless driver via the Prisma
-// adapter so cold starts are HTTP-fetch-fast and connections don't pile up.
+// Lazy singleton Prisma client.
+//
+// Build-time safety: instantiation is deferred until the first property
+// access. Without this, Next's `next build` page-data collection crashes
+// any route that imports the prisma symbol when DATABASE_URL is unset
+// (deploys without Neon wired up yet, local previews, the Vercel build).
+//
+// The Proxy is invisible to consumers — `prisma.therapist.findUnique(...)` just works.
 
 import { neonConfig } from '@neondatabase/serverless';
 import { PrismaNeon } from '@prisma/adapter-neon';
@@ -11,7 +15,7 @@ declare global {
   var __habla_prisma__: PrismaClient | undefined;
 }
 
-function createClient() {
+function createClient(): PrismaClient {
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) {
     throw new Error(
@@ -19,8 +23,6 @@ function createClient() {
     );
   }
 
-  // Edge / browser environments expose `WebSocket` natively and Neon will
-  // pick it up. In Node we fall back to the polyfill ws picks up dynamically.
   if (typeof WebSocket !== 'undefined') {
     neonConfig.webSocketConstructor = WebSocket;
   }
@@ -29,8 +31,21 @@ function createClient() {
   return new PrismaClient({ adapter });
 }
 
-export const prisma = globalThis.__habla_prisma__ ?? createClient();
-
-if (process.env.NODE_ENV !== 'production') {
-  globalThis.__habla_prisma__ = prisma;
+function getClient(): PrismaClient {
+  if (globalThis.__habla_prisma__) return globalThis.__habla_prisma__;
+  const client = createClient();
+  if (process.env.NODE_ENV !== 'production') {
+    globalThis.__habla_prisma__ = client;
+  }
+  return client;
 }
+
+// Lazy proxy: any property access (`prisma.therapist`, `prisma.$disconnect`)
+// instantiates on demand. The empty target is safe because the proxy
+// always defers to the real client.
+export const prisma = new Proxy({} as PrismaClient, {
+  get(_target, prop, receiver) {
+    const client = getClient();
+    return Reflect.get(client, prop, receiver);
+  },
+});

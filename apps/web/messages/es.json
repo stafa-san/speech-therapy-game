@@ -36,5 +36,34 @@
     "switch": "Cambiar idioma",
     "es": "Español",
     "en": "English"
+  },
+  "nav": {
+    "home": "Inicio",
+    "lists": "Listas",
+    "assignments": "Asignaciones",
+    "settings": "Ajustes"
+  },
+  "dashboard": {
+    "greeting": "Bienvenida",
+    "title": "Tu panel",
+    "quickPlay": {
+      "title": "Jugar rápido",
+      "description": "Elige sonido y posición, escoge un juego y manda el enlace en menos de 30 segundos.",
+      "comingSoon": "Próximamente"
+    },
+    "cards": {
+      "recentAssignments": {
+        "title": "Asignaciones recientes",
+        "description": "Lo último que has compartido con familias."
+      },
+      "savedLists": {
+        "title": "Listas guardadas",
+        "description": "Tus listas avaladas y personalizadas."
+      },
+      "usage": {
+        "title": "Actividad",
+        "description": "Cuántas veces se han abierto tus enlaces esta semana."
+      }
+    }
   }
 }
