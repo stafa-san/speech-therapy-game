@@ -47,6 +47,23 @@
     "title": "Listas de palabras",
     "description": "Explora las listas avaladas por logopedas y selecciona una para asignar."
   },
+  "player": {
+    "intro": {
+      "title": "¡Vamos a practicar la {phoneme}!",
+      "description": "Toma turnos: tu hijo dice la palabra, tú confirmas y avanza el juego.",
+      "start": "Empezar"
+    },
+    "trial": {
+      "label": "{current} de {total}",
+      "play": "Escuchar",
+      "next": "Siguiente"
+    },
+    "end": {
+      "title": "¡Bien hecho!",
+      "summary": "Completaron {count} palabras.",
+      "again": "Otra vez"
+    }
+  },
   "wordList": {
     "open": "Abrir",
     "wordCount": "{count} palabras",

@@ -1,15 +1,17 @@
 // Family player surface — public, COPPA-strict.
 //
-// PR 9 (this one): renders the intro screen + skeleton "ready to play" UI
-// for any token. Token validation hits the play tRPC router (which today
-// stubs NOT_FOUND for unknown tokens; PR 10 wires DB lookups).
-//
-// PR 11+ mounts the actual <GameShell /> in place of the placeholder.
+// Validates the token shape, then hands off to the client-side player.
+// Until the DB is wired, the player runs in "demo mode" with the first
+// dummy word list from @habla/db's seed data, which is fine for previewing
+// the UX with any token. Once PR 7's DB lookups land, this server
+// component will resolve the assignment and pass the resolved word list +
+// game id to the client component.
 
 import { notFound } from 'next/navigation';
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { DUMMY_WORD_LISTS, PHONEMES } from '@habla/db/seed/data';
+
+import { PlayerClient } from '@/features/player/player-client';
 
 interface PlayPageProps {
   params: Promise<{ token: string }>;
@@ -22,28 +24,27 @@ export default async function PlayPage({ params }: PlayPageProps) {
   const { token } = await params;
   if (!TOKEN_RE.test(token)) notFound();
 
-  // Once the DB is wired, validate the token here:
-  //   const caller = await getPlayCaller();
-  //   const assignment = await caller.play.byToken({ token }).catch(() => null);
-  //   if (!assignment) notFound();
-  // The caller MUST omit studentLabel from its select (Project.md §8).
+  // TODO(PR 12): replace with `getPlayCaller().play.byToken({ token })`.
+  // The select clause MUST omit studentLabel (§8).
+  const demoList = DUMMY_WORD_LISTS[0]!;
+  const phonemeSymbol = PHONEMES.find((p) => p.id === demoList.phonemeId)?.symbol ?? '/?/';
 
   return (
-    <main className="grid min-h-dvh place-items-center px-4 py-12">
-      <Card className="w-full max-w-md text-center">
-        <CardHeader>
-          <CardTitle className="text-3xl">¡Hola!</CardTitle>
-          <CardDescription>Listos para practicar.</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <p className="text-muted-foreground text-sm">
-            Esta es la página del jugador. Pronto verás aquí el juego asignado por tu logopeda.
-          </p>
-          <Button size="lg" disabled>
-            Empezar
-          </Button>
-        </CardContent>
-      </Card>
-    </main>
+    <PlayerClient
+      wordList={{
+        id: demoList.slug,
+        name: demoList.name,
+        phonemeSymbol,
+        words: demoList.words.slice(0, 12).map((w, i) => ({
+          id: `${demoList.slug}-w-${i}`,
+          text: w.text,
+          textEn: w.textEn,
+          imageUrl: null,
+          audioUrl: null,
+        })),
+      }}
+      gameSlug="feed-the-shark"
+      trials={10}
+    />
   );
 }

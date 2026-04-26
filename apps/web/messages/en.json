@@ -47,6 +47,23 @@
     "title": "Word lists",
     "description": "Browse SLP-vetted lists and pick one to assign."
   },
+  "player": {
+    "intro": {
+      "title": "Let's practice the {phoneme}!",
+      "description": "Take turns: your child says the word, you confirm and the game advances.",
+      "start": "Start"
+    },
+    "trial": {
+      "label": "{current} of {total}",
+      "play": "Listen",
+      "next": "Next"
+    },
+    "end": {
+      "title": "Great job!",
+      "summary": "You completed {count} words.",
+      "again": "Play again"
+    }
+  },
   "wordList": {
     "open": "Open",
     "wordCount": "{count} words",
