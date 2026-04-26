@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "title": "Habla Juega",
+    "titleTemplate": "%s · Habla Juega",
+    "description": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa."
+  },
+  "landing": {
+    "preLaunchBadge": "Pre-launch · MVP en construcción",
+    "title": "Habla Juega",
+    "tagline": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa.",
+    "subTagline": "Spanish-first speech therapy practice — Duolingo-grade games, SLP-vetted word lists.",
+    "ctaSignIn": "Inicia sesión",
+    "ctaRepo": "Repositorio"
+  },
+  "common": {
+    "back": "Volver",
+    "next": "Siguiente",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "loading": "Cargando…",
+    "retry": "Reintentar"
+  },
+  "errors": {
+    "label": "Error",
+    "title": "Algo salió mal",
+    "description": "Tuvimos un problema cargando esta página. Inténtalo de nuevo.",
+    "ref": "Referencia: {digest}"
+  },
+  "notFound": {
+    "label": "404",
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o fue movida.",
+    "cta": "Volver al inicio"
+  },
+  "locale": {
+    "switch": "Cambiar idioma",
+    "es": "Español",
+    "en": "English"
+  },
+  "nav": {
+    "home": "Inicio",
+    "lists": "Listas",
+    "assignments": "Asignaciones",
+    "settings": "Ajustes"
+  },
+  "dashboard": {
+    "greeting": "Bienvenida",
+    "title": "Tu panel",
+    "quickPlay": {
+      "title": "Jugar rápido",
+      "description": "Elige sonido y posición, escoge un juego y manda el enlace en menos de 30 segundos.",
+      "comingSoon": "Próximamente"
+    },
+    "cards": {
+      "recentAssignments": {
+        "title": "Asignaciones recientes",
+        "description": "Lo último que has compartido con familias."
+      },
+      "savedLists": {
+        "title": "Listas guardadas",
+        "description": "Tus listas avaladas y personalizadas."
+      },
+      "usage": {
+        "title": "Actividad",
+        "description": "Cuántas veces se han abierto tus enlaces esta semana."
+      }
+    }
+  }
+}

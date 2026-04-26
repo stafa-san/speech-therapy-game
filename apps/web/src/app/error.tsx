@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
@@ -11,6 +12,9 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations('errors');
+  const tCommon = useTranslations('common');
+
   useEffect(() => {
     console.error('Unhandled app error:', error);
   }, [error]);
@@ -18,16 +22,16 @@ export default function GlobalError({
   return (
     <main className="grid min-h-dvh place-items-center px-6 py-16 text-center">
       <div>
-        <p className="text-destructive text-sm font-semibold">Error</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight">Algo salió mal</h1>
-        <p className="text-muted-foreground mt-4">
-          Tuvimos un problema cargando esta página. Inténtalo de nuevo.
-        </p>
+        <p className="text-destructive text-sm font-semibold">{t('label')}</p>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight">{t('title')}</h1>
+        <p className="text-muted-foreground mt-4">{t('description')}</p>
         {error.digest ? (
-          <p className="text-muted-foreground/70 mt-2 font-mono text-xs">ref: {error.digest}</p>
+          <p className="text-muted-foreground/70 mt-2 font-mono text-xs">
+            {t('ref', { digest: error.digest })}
+          </p>
         ) : null}
         <Button onClick={reset} className="mt-8">
-          Reintentar
+          {tCommon('retry')}
         </Button>
       </div>
     </main>
