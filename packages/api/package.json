@@ -1,0 +1,31 @@
+{
+  "name": "@habla/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "tRPC v11 routers for Habla Juega. Lives outside apps/web so the future Expo app can share types.",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "test": "echo 'no tests yet' && exit 0",
+    "clean": "rm -rf .turbo dist"
+  },
+  "dependencies": {
+    "@habla/db": "workspace:*",
+    "@trpc/server": "^11.0.0",
+    "superjson": "^2.2.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@habla/config": "workspace:*",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.17.0",
+    "typescript": "^5.7.2"
+  }
+}

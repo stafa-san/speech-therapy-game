@@ -4,6 +4,7 @@ import { getMessages, getTranslations } from 'next-intl/server';
 
 import { Toaster } from '@/components/ui/sonner';
 import { getLocale } from '@/i18n/locale';
+import { TRPCProvider } from '@/lib/trpc/client';
 import './globals.css';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -54,7 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={locale} suppressHydrationWarning>
       <body className="min-h-dvh font-sans">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <TRPCProvider>{children}</TRPCProvider>
           <Toaster />
         </NextIntlClientProvider>
       </body>
