@@ -40,19 +40,19 @@ export default function Home() {
 function NavBar() {
   const t = useTranslations('landing');
   return (
-    <nav className="relative z-20 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
+    <nav className="relative z-20 mx-auto flex w-full max-w-6xl items-center justify-between gap-2 px-4 py-4 sm:px-6 sm:py-5">
       <Link
         href="/"
-        className="text-brand-700 flex items-center gap-2 text-lg font-extrabold tracking-tight"
+        className="text-brand-700 flex items-center gap-2 font-extrabold tracking-tight"
       >
-        <span className="bg-brand-500 grid size-9 place-items-center rounded-2xl text-white shadow-[0_3px_0_0_var(--color-brand-700)]">
-          <Sparkles className="size-5" />
+        <span className="bg-brand-500 grid size-8 place-items-center rounded-2xl text-white shadow-[0_3px_0_0_var(--color-brand-700)] sm:size-9">
+          <Sparkles className="size-4 sm:size-5" />
         </span>
-        Habla Juega
+        <span className="text-base sm:text-lg">Habla Juega</span>
       </Link>
       <div className="flex items-center gap-2">
         <LocaleSwitch />
-        <DuoButton asChild size="sm" variant="ghost" className="hidden sm:inline-flex">
+        <DuoButton asChild size="sm" variant="ghost" className="hidden md:inline-flex">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <Link href={'/dashboard' as any}>{t('navTherapist')}</Link>
         </DuoButton>
@@ -69,31 +69,31 @@ function Hero() {
   const t = useTranslations('landing');
 
   return (
-    <section className="relative mx-auto grid w-full max-w-6xl items-center gap-8 px-6 pb-16 pt-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pb-24">
-      <div className="relative z-10 flex flex-col items-start gap-6 text-left">
+    <section className="relative mx-auto grid w-full max-w-6xl items-center gap-8 px-4 pb-12 pt-4 sm:px-6 sm:pb-16 sm:pt-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16 lg:pb-24">
+      <div className="relative z-10 flex flex-col items-start gap-5 text-left sm:gap-6">
         <Badge
           variant="secondary"
-          className="bg-sunshine-300 text-coral-700 border-coral-300 rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wide"
+          className="bg-sunshine-300 text-coral-700 border-coral-300 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide sm:text-sm"
         >
           <span className="bg-coral-500 mr-1.5 inline-block size-1.5 rounded-full" />
           {t('preLaunchBadge')}
         </Badge>
-        <h1 className="text-foreground text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+        <h1 className="text-foreground text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
           {t('hero.line1')}
           <br />
           <span className="from-brand-500 to-coral-500 bg-linear-to-r bg-clip-text text-transparent">
             {t('hero.line2')}
           </span>
         </h1>
-        <p className="text-foreground/70 max-w-xl text-lg sm:text-xl">{t('tagline')}</p>
-        <div className="flex flex-wrap items-center gap-3">
-          <DuoButton asChild size="xl" variant="primary">
+        <p className="text-foreground/70 max-w-xl text-base sm:text-xl">{t('tagline')}</p>
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+          <DuoButton asChild size="xl" variant="primary" className="w-full sm:w-auto">
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             <Link href={'/play/demo' as any}>
               {t('ctaPlayDemo')} <ArrowRight className="size-5" />
             </Link>
           </DuoButton>
-          <DuoButton asChild size="xl" variant="ghost">
+          <DuoButton asChild size="xl" variant="ghost" className="w-full sm:w-auto">
             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             <Link href={'/lists' as any}>{t('ctaBrowseLists')}</Link>
           </DuoButton>
@@ -101,12 +101,12 @@ function Hero() {
         <p className="text-foreground/50 text-xs">{t('demoNote')}</p>
       </div>
 
-      <div className="relative aspect-[4/3] w-full max-w-[560px] justify-self-center lg:justify-self-end">
+      <div className="aspect-4/3 max-w-140 relative order-first w-full justify-self-center lg:order-last lg:justify-self-end">
         <div className="shadow-brand-900/10 rounded-4xl absolute inset-0 -z-10 overflow-hidden shadow-2xl">
           <HeroScene />
         </div>
-        <div className="absolute inset-0 grid place-items-end p-6 sm:p-10">
-          <RiveMascot mood="happy" className="size-56 sm:size-72" forcePlaceholder />
+        <div className="absolute inset-0 grid place-items-end p-4 sm:p-10">
+          <RiveMascot mood="happy" className="size-44 sm:size-72" forcePlaceholder />
         </div>
       </div>
     </section>
