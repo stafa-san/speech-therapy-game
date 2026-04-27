@@ -14,6 +14,9 @@ export interface UseGameSessionResult {
   trialsRemaining: number;
   isComplete: boolean;
   advance: () => void;
+  /** Full shuffled trial sequence, exposed so games can preview upcoming
+   *  words (wheel segments, fish school, etc.). Length === config.trials. */
+  sequence: readonly GameWord[];
 }
 
 function buildSequence(words: GameWord[], trials: number): GameWord[] {
@@ -67,5 +70,6 @@ export function useGameSession({
     trialsRemaining: Math.max(0, config.trials - trial),
     isComplete: complete,
     advance,
+    sequence,
   };
 }
