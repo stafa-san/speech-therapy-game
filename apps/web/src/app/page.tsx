@@ -13,6 +13,11 @@ import {
   FeatureShield,
   FeatureSpark,
 } from '@/components/illustrations/feature-icons';
+import {
+  BuildAMonsterThumb,
+  FeedTheSharkThumb,
+  SpinTheWheelThumb,
+} from '@/components/illustrations/game-thumbnails';
 import { HeroScene } from '@/components/illustrations/hero-scene';
 import { Badge } from '@/components/ui/badge';
 import { DuoButton } from '@/components/ui/duo-button';
@@ -23,6 +28,7 @@ export default function Home() {
       <NavBar />
       <Hero />
       <Strip />
+      <GamesPreview />
       <Features />
       <HowItWorks />
       <FinalCta />
@@ -126,6 +132,55 @@ function Strip() {
         ))}
       </div>
     </div>
+  );
+}
+
+function GamesPreview() {
+  const t = useTranslations('landing');
+  const games = [
+    {
+      slug: 'feed-the-shark',
+      Thumb: FeedTheSharkThumb,
+      tone: 'bg-sky-soft-100 hover:bg-sky-soft-300',
+    },
+    {
+      slug: 'build-a-monster',
+      Thumb: BuildAMonsterThumb,
+      tone: 'bg-grape-100 hover:bg-grape-300',
+    },
+    {
+      slug: 'spin-the-wheel',
+      Thumb: SpinTheWheelThumb,
+      tone: 'bg-sunshine-100 hover:bg-sunshine-300',
+    },
+  ] as const;
+
+  return (
+    <section className="bg-background relative z-10 mx-auto w-full max-w-6xl px-6 py-20">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{t('games.title')}</h2>
+        <p className="text-foreground/60 mt-3 text-lg">{t('games.subtitle')}</p>
+      </div>
+      <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        {games.map(({ slug, Thumb, tone }) => (
+          <Link
+            key={slug}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            href={`/play/demo?game=${slug}` as any}
+            className={`rounded-4xl ring-border focus-visible:ring-brand-500 group relative flex flex-col overflow-hidden ring-2 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 ${tone}`}
+          >
+            <Thumb className="h-44 w-full object-cover" />
+            <div className="bg-card flex flex-col gap-2 p-6">
+              <h3 className="text-xl font-extrabold">{t(`games.items.${slug}.title`)}</h3>
+              <p className="text-foreground/60 text-sm">{t(`games.items.${slug}.body`)}</p>
+              <span className="text-brand-700 group-hover:text-brand-500 mt-2 text-sm font-bold">
+                {t('games.cta')} →
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 

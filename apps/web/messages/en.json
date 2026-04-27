@@ -27,6 +27,25 @@
       "coppa": "COPPA-safe",
       "coverage": "MX, ES & US Spanish"
     },
+    "games": {
+      "title": "Three games to keep them coming back",
+      "subtitle": "Each one fits 6–12 trials. Same word list, different spectacle.",
+      "cta": "Try this game",
+      "items": {
+        "feed-the-shark": {
+          "title": "Feed the Shark",
+          "body": "Each correct word feeds a friendly shark a fish. Fast pacing for short attention spans."
+        },
+        "build-a-monster": {
+          "title": "Build a Monster",
+          "body": "Every turn grows a piece of a silly monster: eyes, horns, arms, spots, legs. Gentle tension that pays off at the end."
+        },
+        "spin-the-wheel": {
+          "title": "Spin the Wheel",
+          "body": "A colorful roulette lands on the next word. Surprise + suspense — great for kids who tire of repetition."
+        }
+      }
+    },
     "features": {
       "title": "What you'll love",
       "subtitle": "Built for therapists who assign homework, and for families who'll actually do it.",
@@ -117,6 +136,24 @@
   "demo": {
     "badge": "Demo mode"
   },
+  "settings": {
+    "eyebrow": "Settings",
+    "title": "Your preferences",
+    "language": {
+      "title": "Language",
+      "description": "Toggle the UI between English and Spanish. The Spanish vocabulary in lessons stays in Spanish."
+    },
+    "account": {
+      "title": "Account",
+      "description": "Sign-in details, credential, and email.",
+      "placeholder": "Available with auth"
+    },
+    "plan": {
+      "title": "Plan",
+      "description": "Free covers the SLP-vetted lists and three games. Pro unlocks the custom list builder.",
+      "free": "Free"
+    }
+  },
   "lists": {
     "title": "Word lists",
     "description": "Browse SLP-vetted lists and pick one to assign."
@@ -132,10 +169,17 @@
       "play": "Listen",
       "next": "Next"
     },
+    "wheel": {
+      "spin": "Spin!",
+      "spinning": "Spinning…",
+      "tapToSpin": "Tap to spin and see your word."
+    },
     "end": {
       "title": "Great job!",
       "summary": "You completed {count} words.",
-      "again": "Play again"
+      "again": "Play again",
+      "tryAnother": "Try another game",
+      "home": "Back to home"
     }
   },
   "wordList": {
