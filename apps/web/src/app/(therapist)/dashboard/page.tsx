@@ -111,8 +111,8 @@ function DashCard({
   );
   if (!href) return inner;
   return (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <Link
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       href={href as any}
       className="ring-border focus-visible:ring-brand-500 block rounded-3xl focus-visible:outline-none focus-visible:ring-4"
     >
