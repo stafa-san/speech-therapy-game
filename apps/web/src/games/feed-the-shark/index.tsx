@@ -88,16 +88,8 @@ function SharkCanvas({
   chomp: boolean;
 }) {
   return (
-    <div className="rounded-4xl relative grid h-64 place-items-center overflow-hidden border-4 border-white shadow-xl">
+    <div className="from-sky-soft-100 to-brand-100 rounded-4xl bg-linear-to-br relative grid h-64 place-items-center overflow-hidden border-4 border-white shadow-xl">
       <svg viewBox="0 0 320 200" className="size-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="fts-water" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#7dd3fc" />
-            <stop offset="100%" stopColor="#0891b2" />
-          </linearGradient>
-        </defs>
-
-        <rect width="320" height="200" fill="url(#fts-water)" />
         <Bubbles />
 
         {/* Fish school — one fish per upcoming trial */}

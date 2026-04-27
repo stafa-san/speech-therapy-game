@@ -26,7 +26,7 @@ export const GAMES: ReadonlyArray<Omit<Prisma.GameUncheckedCreateInput, 'id'> & 
   },
   {
     id: 3,
-    slug: 'la-ruleta',
+    slug: 'spin-the-wheel',
     nameEs: 'La Ruleta',
     nameEn: 'Spin the Wheel',
     minTrials: 6,
