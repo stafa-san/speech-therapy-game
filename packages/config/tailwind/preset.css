@@ -5,18 +5,42 @@
 @theme {
   /* Brand: a warm Latin-American teal — friendly, child-safe, distinct from
    * Pink Cat Games' pink and Duolingo's owl-green. */
-  --color-brand-50: oklch(0.97 0.02 165);
-  --color-brand-100: oklch(0.93 0.05 165);
-  --color-brand-200: oklch(0.86 0.1 165);
-  --color-brand-300: oklch(0.78 0.15 165);
-  --color-brand-400: oklch(0.7 0.18 165);
-  --color-brand-500: oklch(0.62 0.2 165);
-  --color-brand-600: oklch(0.54 0.18 165);
-  --color-brand-700: oklch(0.46 0.15 165);
-  --color-brand-800: oklch(0.38 0.12 165);
-  --color-brand-900: oklch(0.3 0.09 165);
+  --color-brand-50: oklch(0.97 0.02 175);
+  --color-brand-100: oklch(0.93 0.06 175);
+  --color-brand-200: oklch(0.86 0.11 175);
+  --color-brand-300: oklch(0.78 0.16 175);
+  --color-brand-400: oklch(0.7 0.19 175);
+  --color-brand-500: oklch(0.62 0.21 175);
+  --color-brand-600: oklch(0.54 0.19 175);
+  --color-brand-700: oklch(0.46 0.16 175);
+  --color-brand-800: oklch(0.38 0.13 175);
+  --color-brand-900: oklch(0.3 0.1 175);
 
-  /* Accents: child-game palette, used on rewards and CTA buttons. */
+  /* Sunshine: hero gradients, reward stars, "fun fact" badges. */
+  --color-sunshine-100: oklch(0.97 0.06 90);
+  --color-sunshine-300: oklch(0.92 0.13 90);
+  --color-sunshine-500: oklch(0.85 0.18 90);
+  --color-sunshine-700: oklch(0.7 0.18 90);
+
+  /* Coral: hearts, lives, encouragement. */
+  --color-coral-100: oklch(0.95 0.05 30);
+  --color-coral-300: oklch(0.85 0.12 30);
+  --color-coral-500: oklch(0.74 0.18 30);
+  --color-coral-700: oklch(0.55 0.18 30);
+
+  /* Grape: pro features, premium accents. */
+  --color-grape-100: oklch(0.96 0.04 290);
+  --color-grape-300: oklch(0.85 0.1 290);
+  --color-grape-500: oklch(0.65 0.18 290);
+  --color-grape-700: oklch(0.45 0.18 290);
+
+  /* Sky: secondary CTAs, info badges. */
+  --color-sky-soft-100: oklch(0.97 0.03 235);
+  --color-sky-soft-300: oklch(0.88 0.08 235);
+  --color-sky-soft-500: oklch(0.7 0.13 235);
+  --color-sky-soft-700: oklch(0.5 0.15 235);
+
+  /* Legacy accent aliases (kept so existing code doesn't break). */
   --color-accent-coral: oklch(0.74 0.18 30);
   --color-accent-sun: oklch(0.85 0.16 90);
   --color-accent-sky: oklch(0.78 0.13 235);
@@ -27,14 +51,15 @@
   --color-warning: oklch(0.82 0.16 80);
   --color-danger: oklch(0.62 0.22 25);
 
-  /* Type. Inter for UI, Fraunces for display headings on the marketing surface. */
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Fraunces', Georgia, serif;
+  /* Type. Plus Jakarta Sans is closer to Duolingo's Feather Bold than Inter. */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Roundness — softer than default to feel friendlier to kids and parents. */
-  --radius-card: 1.25rem;
-  --radius-button: 0.875rem;
+  /* Roundness — chunky like Duolingo. */
+  --radius-card: 1.5rem;
+  --radius-button: 1rem;
+  --radius-tile: 1.25rem;
   --radius-pill: 9999px;
 
   /* Motion. */
@@ -49,4 +74,35 @@
     0.866 64.5%,
     0.999 100%
   );
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Shadows for chunky 3D buttons (Duolingo press effect). */
+  --shadow-duo-brand: 0 4px 0 0 var(--color-brand-700);
+  --shadow-duo-brand-pressed: 0 0 0 0 var(--color-brand-700);
+  --shadow-duo-coral: 0 4px 0 0 var(--color-coral-700);
+  --shadow-duo-sunshine: 0 4px 0 0 var(--color-sunshine-700);
+  --shadow-duo-sky: 0 4px 0 0 var(--color-sky-soft-700);
+  --shadow-duo-grape: 0 4px 0 0 var(--color-grape-700);
+  --shadow-duo-neutral: 0 4px 0 0 oklch(0.78 0 0);
+}
+
+/* Page-level helpers: gradient backgrounds + decorative blobs. */
+@layer utilities {
+  .bg-hero-gradient {
+    background:
+      radial-gradient(ellipse at top right, oklch(0.93 0.06 175 / 0.6), transparent 60%),
+      radial-gradient(ellipse at bottom left, oklch(0.95 0.05 30 / 0.5), transparent 55%),
+      linear-gradient(to bottom, oklch(0.99 0.01 175), oklch(0.97 0.04 235));
+  }
+  .bg-celebrate-gradient {
+    background:
+      radial-gradient(ellipse at center, oklch(0.97 0.13 90 / 0.6), transparent 60%),
+      linear-gradient(to bottom, oklch(0.95 0.08 50), oklch(0.92 0.13 30));
+  }
+  .bg-mesh-soft {
+    background:
+      radial-gradient(at 20% 20%, oklch(0.93 0.06 175 / 0.6), transparent 50%),
+      radial-gradient(at 80% 30%, oklch(0.95 0.05 30 / 0.4), transparent 55%),
+      radial-gradient(at 50% 80%, oklch(0.96 0.05 290 / 0.4), transparent 55%);
+  }
 }
