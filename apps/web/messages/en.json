@@ -169,6 +169,7 @@
       "play": "Listen",
       "next": "Next"
     },
+    "exit": "Exit to home",
     "wheel": {
       "spin": "Spin!",
       "spinning": "Spinning…",

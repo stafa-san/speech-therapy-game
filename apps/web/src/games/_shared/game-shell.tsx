@@ -12,7 +12,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { Heart, Home, Shuffle, Star, Volume2 } from 'lucide-react';
+import { Heart, Home, Shuffle, Star, Volume2, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { RiveMascot, RiveReward } from '@habla/rive';
@@ -196,9 +196,17 @@ function PlayHud({
   completedTrials: number;
   totalTrials: number;
 }) {
+  const t = useTranslations('player');
   const progress = Math.round((completedTrials / Math.max(1, totalTrials)) * 100);
   return (
-    <div className="absolute inset-x-0 top-0 z-20 mx-auto flex max-w-md items-center gap-3 px-4 py-4">
+    <div className="absolute inset-x-0 top-0 z-20 mx-auto flex max-w-md items-center gap-2 px-3 py-4 sm:gap-3 sm:px-4">
+      <Link
+        href="/"
+        aria-label={t('exit')}
+        className="bg-card text-foreground/65 hover:bg-coral-100 hover:text-coral-700 grid size-10 shrink-0 place-items-center rounded-full border-2 border-white shadow-md transition-colors"
+      >
+        <X className="size-5" />
+      </Link>
       <Badge
         variant="secondary"
         className="bg-card border-brand-300 text-brand-700 rounded-full border-2 px-3 py-1 text-base font-extrabold"
