@@ -27,6 +27,25 @@
       "coppa": "COPPA-safe",
       "coverage": "Español de México, España y EE. UU."
     },
+    "games": {
+      "title": "Tres juegos que los hacen volver",
+      "subtitle": "Cada uno dura entre 6 y 12 turnos. Misma lista de palabras, distinta puesta en escena.",
+      "cta": "Probar este juego",
+      "items": {
+        "feed-the-shark": {
+          "title": "Alimenta al Tiburón",
+          "body": "Cada palabra correcta alimenta al tiburón amistoso. Ritmo rápido para atenciones cortas."
+        },
+        "build-a-monster": {
+          "title": "Arma el Monstruo",
+          "body": "Cada turno suma una parte de un monstruo cómico: ojos, cuernos, brazos, manchas, patas. Tensión que se resuelve al final."
+        },
+        "spin-the-wheel": {
+          "title": "La Ruleta",
+          "body": "Una ruleta colorida elige la siguiente palabra. Sorpresa y suspenso — ideal para los que se cansan de repetir."
+        }
+      }
+    },
     "features": {
       "title": "Lo que vas a amar",
       "subtitle": "Pensado para logopedas que mandan tarea y para familias que la harán.",
@@ -117,6 +136,24 @@
   "demo": {
     "badge": "Modo demo"
   },
+  "settings": {
+    "eyebrow": "Ajustes",
+    "title": "Tus preferencias",
+    "language": {
+      "title": "Idioma",
+      "description": "Cambia la interfaz entre inglés y español. Las palabras en español de las lecciones siempre se mantienen en español."
+    },
+    "account": {
+      "title": "Cuenta",
+      "description": "Datos de inicio de sesión, credenciales y correo.",
+      "placeholder": "Disponible con auth"
+    },
+    "plan": {
+      "title": "Plan",
+      "description": "Free incluye listas avaladas por SLP y los tres juegos. Pro desbloquea el creador de listas personalizadas.",
+      "free": "Free"
+    }
+  },
   "lists": {
     "title": "Listas de palabras",
     "description": "Explora las listas avaladas por logopedas y selecciona una para asignar."
@@ -132,10 +169,17 @@
       "play": "Escuchar",
       "next": "Siguiente"
     },
+    "wheel": {
+      "spin": "¡Gira!",
+      "spinning": "Girando…",
+      "tapToSpin": "Toca para girar y ver tu palabra."
+    },
     "end": {
       "title": "¡Bien hecho!",
       "summary": "Completaron {count} palabras.",
-      "again": "Otra vez"
+      "again": "Otra vez",
+      "tryAnother": "Otro juego",
+      "home": "Volver al inicio"
     }
   },
   "wordList": {
