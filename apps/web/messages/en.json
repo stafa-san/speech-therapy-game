@@ -5,16 +5,83 @@
     "description": "Spanish-first articulation practice for speech therapy. SLP-vetted word lists paired with delightful animated games."
   },
   "landing": {
-    "preLaunchBadge": "Pre-launch · MVP in progress",
+    "preLaunchBadge": "Pre-launch · MVP",
     "title": "Habla Juega",
-    "tagline": "Spanish-first articulation practice ready in seconds. SLP-vetted word lists with animated games families can play at home.",
-    "subTagline": "Práctica de articulación en español, con juegos animados al estilo Duolingo.",
+    "tagline": "SLP-vetted word lists + animated games kids want to play again. Ready in 30 seconds.",
+    "subTagline": "Spanish-first articulation practice — Duolingo-grade games.",
+    "navTherapist": "Therapists",
+    "navPlay": "Try it",
+    "hero": {
+      "line1": "Spanish practice,",
+      "line2": "kids actually love."
+    },
     "ctaSignIn": "Sign in",
     "ctaPlayDemo": "Try the game",
     "ctaBrowseLists": "Browse lists",
     "ctaTherapistView": "Therapist view",
     "ctaRepo": "Repository",
-    "demoNote": "Demo mode · no auth, no database. Sample data; great for previewing the flow."
+    "demoNote": "Demo mode · no auth, no database. Sample data; great for previewing the flow.",
+    "strip": {
+      "phonemes": "12 phonemes",
+      "games": "3 animated games",
+      "coppa": "COPPA-safe",
+      "coverage": "MX, ES & US Spanish"
+    },
+    "features": {
+      "title": "What you'll love",
+      "subtitle": "Built for therapists who assign homework, and for families who'll actually do it.",
+      "items": {
+        "fast": {
+          "title": "Faster than a text",
+          "body": "Pick a sound, position, and game; share the link in under 30 seconds. Nothing to install."
+        },
+        "family": {
+          "title": "Made for home",
+          "body": "Kid and grown-up take turns: child says the word, parent confirms, the game advances."
+        },
+        "curated": {
+          "title": "SLP-vetted lists",
+          "body": "Start with reviewed lists. Build your own with images + audio in Pro and share them anywhere."
+        },
+        "safe": {
+          "title": "Kid-safe by default",
+          "body": "The play link has no tracking, asks for nothing, and contacts no third parties. COPPA-strict by design."
+        },
+        "short": {
+          "title": "Short sessions",
+          "body": "Each game runs 6–12 trials. Enough to practice, short enough to keep them coming back."
+        },
+        "spanish": {
+          "title": "Spanish-first, dialect-aware",
+          "body": "Lists and voices for Mexican, Iberian, and US Spanish. Switch between them when you need to."
+        }
+      }
+    },
+    "how": {
+      "title": "How it works",
+      "subtitle": "Three steps. Same flow every time.",
+      "steps": {
+        "choose": {
+          "title": "Pick a list",
+          "body": "Filter by phoneme (/r/, /s/, /l/…), position, and difficulty. Use a template or build your own in Pro."
+        },
+        "send": {
+          "title": "Send the link",
+          "body": "Generate a unique link for each student. Family receives it by email or message — no account required."
+        },
+        "play": {
+          "title": "Family plays",
+          "body": "Kid plays 6–12 turns with rewarding animations. You see how often the link was opened."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "30 seconds for you. 5 minutes for the family.",
+      "body": "Try the demo or jump into the therapist view. No account needed to start."
+    },
+    "footer": {
+      "copy": "© 2026 Habla Juega. Built with 🌶️ for Spanish-speaking SLPs."
+    }
   },
   "common": {
     "back": "Back",
@@ -128,22 +195,25 @@
     "greeting": "Welcome back",
     "title": "Your dashboard",
     "quickPlay": {
-      "title": "Quick play",
-      "description": "Pick a sound and position, choose a game, and send the link in under 30 seconds.",
-      "comingSoon": "Coming soon"
+      "title": "Send a link in 30 seconds",
+      "description": "Pick a list by sound + position, choose a game, send it to the family. Faster than a text.",
+      "cta": "Start",
+      "comingSoon": "Shortcut · Coming soon"
     },
     "cards": {
+      "cta": "Go →",
       "recentAssignments": {
         "title": "Recent assignments",
-        "description": "Last links you sent to families."
+        "description": "What you've shared with families and how often it was opened."
       },
       "savedLists": {
         "title": "Saved lists",
-        "description": "Your SLP-vetted and custom lists."
+        "description": "Your SLP-vetted lists and the ones you built in Pro."
       },
       "usage": {
         "title": "Activity",
-        "description": "How many times your links were opened this week."
+        "description": "How many times your links were opened this week.",
+        "cta": "Available with DB"
       }
     }
   }

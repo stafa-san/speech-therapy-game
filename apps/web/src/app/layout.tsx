@@ -2,11 +2,19 @@ import type { Metadata, Viewport } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/sonner';
 import { getLocale } from '@/i18n/locale';
 import { TRPCProvider } from '@/lib/trpc/client';
 import './globals.css';
+
+const display = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-display-loaded',
+  display: 'swap',
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('metadata');
@@ -55,8 +63,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const messages = await getMessages();
 
   const tree = (
-    <html lang={locale} suppressHydrationWarning>
-      <body className="min-h-dvh font-sans">
+    <html lang={locale} className={display.variable} suppressHydrationWarning>
+      <body className="min-h-dvh font-sans antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <TRPCProvider>{children}</TRPCProvider>
           <Toaster />
@@ -65,8 +73,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 
-  // ClerkProvider requires a publishable key. When unset (e.g., previews
-  // before keys are wired), render without it so the marketing surface
-  // still works.
+  // ClerkProvider requires a publishable key. Without it (early previews),
+  // render the tree directly so the demo still works.
   return hasClerkKeys ? <ClerkProvider>{tree}</ClerkProvider> : tree;
 }

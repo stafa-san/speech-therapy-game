@@ -5,16 +5,83 @@
     "description": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa."
   },
   "landing": {
-    "preLaunchBadge": "Pre-launch · MVP en construcción",
+    "preLaunchBadge": "Pre-launch · MVP",
     "title": "Habla Juega",
-    "tagline": "Práctica de articulación en español, lista en segundos. Listas de palabras avaladas por terapeutas del habla, con juegos animados que las familias pueden jugar en casa.",
+    "tagline": "Listas avaladas por logopedas + juegos animados que tu hijo querrá jugar otra vez. Listo en 30 segundos.",
     "subTagline": "Spanish-first speech therapy practice — Duolingo-grade games, SLP-vetted word lists.",
+    "navTherapist": "Logopedas",
+    "navPlay": "Probar",
+    "hero": {
+      "line1": "Practica español,",
+      "line2": "juega en casa."
+    },
     "ctaSignIn": "Inicia sesión",
     "ctaPlayDemo": "Probar el juego",
     "ctaBrowseLists": "Ver listas",
     "ctaTherapistView": "Vista de logopeda",
     "ctaRepo": "Repositorio",
-    "demoNote": "Modo demo · sin auth ni base de datos. Datos de muestra; ideal para revisar el flujo."
+    "demoNote": "Modo demo · sin auth, sin base de datos. Datos de ejemplo, ideal para previsualizar.",
+    "strip": {
+      "phonemes": "12 fonemas",
+      "games": "3 juegos animados",
+      "coppa": "COPPA-safe",
+      "coverage": "Español de México, España y EE. UU."
+    },
+    "features": {
+      "title": "Lo que vas a amar",
+      "subtitle": "Pensado para logopedas que mandan tarea y para familias que la harán.",
+      "items": {
+        "fast": {
+          "title": "Rápido como un mensaje",
+          "body": "Elige sonido y posición, escoge un juego y manda el enlace en menos de 30 segundos. Sin instalar nada."
+        },
+        "family": {
+          "title": "Diseñado para casa",
+          "body": "Niños y adultos toman turnos. Tu hijo dice la palabra, tú confirmas y el juego avanza."
+        },
+        "curated": {
+          "title": "Listas avaladas por SLP",
+          "body": "Comienza con listas revisadas por logopedas. Crea las tuyas en Pro y compártelas con cualquier familia."
+        },
+        "safe": {
+          "title": "Privacidad para niños",
+          "body": "El enlace de juego no rastrea, no pide datos y no contacta servidores externos. COPPA-strict por diseño."
+        },
+        "short": {
+          "title": "Sesiones cortas",
+          "body": "Cada juego dura entre 6 y 12 turnos. Suficiente para practicar; corto para no aburrir."
+        },
+        "spanish": {
+          "title": "Spanish-first, dialect-aware",
+          "body": "Listas y voces para el español de México, España y EE. UU. Cambia entre dialectos cuando lo necesites."
+        }
+      }
+    },
+    "how": {
+      "title": "Cómo funciona",
+      "subtitle": "Tres pasos. Mismo flujo cada vez.",
+      "steps": {
+        "choose": {
+          "title": "Elige una lista",
+          "body": "Filtra por sonido (/r/, /s/, /l/…), posición y dificultad. Empieza con plantillas o crea las tuyas en Pro."
+        },
+        "send": {
+          "title": "Manda el enlace",
+          "body": "Crea un enlace único para cada estudiante. Lo recibe la familia por correo o mensaje, sin registro."
+        },
+        "play": {
+          "title": "La familia juega",
+          "body": "El niño juega 6–12 turnos con animaciones premiadas. Tú ves cuántas veces se abrió el enlace."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Toma 30 segundos. La familia, 5 minutos.",
+      "body": "Prueba el demo o entra a la vista de logopeda. No necesitas cuenta para empezar."
+    },
+    "footer": {
+      "copy": "© 2026 Habla Juega. Hecho con 🌶️ para logopedas hispanohablantes."
+    }
   },
   "common": {
     "back": "Volver",
@@ -128,22 +195,25 @@
     "greeting": "Bienvenida",
     "title": "Tu panel",
     "quickPlay": {
-      "title": "Jugar rápido",
-      "description": "Elige sonido y posición, escoge un juego y manda el enlace en menos de 30 segundos.",
-      "comingSoon": "Próximamente"
+      "title": "Crea un enlace en 30 segundos",
+      "description": "Elige una lista de sonido y posición, escoge un juego y mándalo a la familia. Más rápido que un mensaje.",
+      "cta": "Empezar",
+      "comingSoon": "Atajo · Coming soon"
     },
     "cards": {
+      "cta": "Ir →",
       "recentAssignments": {
         "title": "Asignaciones recientes",
-        "description": "Lo último que has compartido con familias."
+        "description": "Lo último que has compartido con familias y cuántas veces lo abrieron."
       },
       "savedLists": {
         "title": "Listas guardadas",
-        "description": "Tus listas avaladas y personalizadas."
+        "description": "Tus listas avaladas por SLP y las que tú creaste en Pro."
       },
       "usage": {
         "title": "Actividad",
-        "description": "Cuántas veces se han abierto tus enlaces esta semana."
+        "description": "Cuántas veces se abrieron tus enlaces esta semana.",
+        "cta": "Disponible con DB"
       }
     }
   }
