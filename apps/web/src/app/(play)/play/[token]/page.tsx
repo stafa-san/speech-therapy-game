@@ -1,34 +1,36 @@
 // Family player surface — public, COPPA-strict.
 //
-// Validates the token shape, then hands off to the client-side player.
-// Until the DB is wired, the player runs in "demo mode" with the first
-// dummy word list from @habla/db's seed data, which is fine for previewing
-// the UX with any token. Once PR 7's DB lookups land, this server
-// component will resolve the assignment and pass the resolved word list +
-// game id to the client component.
+// Validates the token shape, picks a game (from `?game=` for the demo;
+// production resolves it from the assignment), then hands off to the
+// client-side player. Today runs in "demo mode" with the first dummy
+// word list from the seed data; once Neon is wired the lookup in
+// play.byToken becomes authoritative.
 
 import { notFound } from 'next/navigation';
 
-import { DUMMY_WORD_LISTS, PHONEMES } from '@habla/db/seed/data';
+import { DUMMY_WORD_LISTS, GAMES, PHONEMES } from '@habla/db/seed/data';
 
 import { PlayerClient } from '@/features/player/player-client';
 
 interface PlayPageProps {
   params: Promise<{ token: string }>;
+  searchParams: Promise<{ game?: string }>;
 }
 
 // Production tokens are 22 chars from randomBytes(16).toString('base64url').
 // Demo mode (no DB) accepts any URL-safe string so /play/demo works for
-// previewing without setting up Neon. Once DATABASE_URL is set, the lookup
-// in play.byToken is the gate — short demo tokens won't match a real row.
+// previewing without setting up Neon.
 const TOKEN_RE = /^[A-Za-z0-9_-]{1,64}$/;
 
-export default async function PlayPage({ params }: PlayPageProps) {
+export default async function PlayPage({ params, searchParams }: PlayPageProps) {
   const { token } = await params;
+  const { game: gameQuery } = await searchParams;
   if (!TOKEN_RE.test(token)) notFound();
 
-  // TODO(PR 12): replace with `getPlayCaller().play.byToken({ token })`.
-  // The select clause MUST omit studentLabel (§8).
+  const gameSlug = GAMES.find((g) => g.slug === gameQuery)?.slug ?? 'feed-the-shark';
+
+  // TODO: replace with `getPlayCaller().play.byToken({ token })` once the DB
+  // is wired. Select clause MUST omit studentLabel (§8).
   const demoList = DUMMY_WORD_LISTS[0]!;
   const phonemeSymbol = PHONEMES.find((p) => p.id === demoList.phonemeId)?.symbol ?? '/?/';
 
@@ -46,7 +48,7 @@ export default async function PlayPage({ params }: PlayPageProps) {
           audioUrl: null,
         })),
       }}
-      gameSlug="feed-the-shark"
+      gameSlug={gameSlug}
       trials={10}
     />
   );

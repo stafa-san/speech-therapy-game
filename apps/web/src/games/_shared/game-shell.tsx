@@ -11,7 +11,8 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Heart, Star, Volume2 } from 'lucide-react';
+import Link from 'next/link';
+import { Heart, Home, Shuffle, Star, Volume2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { RiveMascot, RiveReward } from '@habla/rive';
@@ -20,12 +21,15 @@ import { Badge } from '@/components/ui/badge';
 import { DuoButton } from '@/components/ui/duo-button';
 
 import type { GameWordList } from './game-contract';
+import { speakSpanish } from './speech';
 
 type Phase = 'intro' | 'play' | 'end';
 
 export interface GameShellProps {
   wordList: GameWordList;
   trials: number;
+  /** Slug of the game we're inside — used to "try another game" link out. */
+  gameSlug?: string;
   onPlayAgain?: () => void;
   children: (args: {
     onTrialComplete: (id: string) => void;
@@ -33,7 +37,14 @@ export interface GameShellProps {
   }) => React.ReactNode;
 }
 
-export function GameShell({ wordList, trials, onPlayAgain, children }: GameShellProps) {
+const ALL_GAMES = ['feed-the-shark', 'build-a-monster', 'spin-the-wheel'] as const;
+
+function nextGameSlug(current: string | undefined): string {
+  const others = ALL_GAMES.filter((g) => g !== current);
+  return others[Math.floor(Math.random() * others.length)] ?? ALL_GAMES[0];
+}
+
+export function GameShell({ wordList, trials, gameSlug, onPlayAgain, children }: GameShellProps) {
   const [phase, setPhase] = useState<Phase>('intro');
   const [completedTrials, setCompletedTrials] = useState(0);
 
@@ -45,6 +56,7 @@ export function GameShell({ wordList, trials, onPlayAgain, children }: GameShell
       <EndScreen
         completedTrials={completedTrials}
         totalTrials={trials}
+        gameSlug={gameSlug}
         onPlayAgain={() => {
           setCompletedTrials(0);
           setPhase('play');
@@ -73,7 +85,6 @@ function IntroScreen({ wordList, onStart }: { wordList: GameWordList; onStart: (
   const t = useTranslations('player');
   return (
     <main className="bg-hero-gradient relative grid min-h-dvh place-items-center overflow-hidden px-4 py-8">
-      {/* Decorative blobs */}
       <div className="bg-sunshine-300 pointer-events-none absolute -left-12 top-12 size-40 rounded-full opacity-40 blur-xl" />
       <div className="bg-coral-300 pointer-events-none absolute -bottom-10 right-0 size-56 rounded-full opacity-40 blur-xl" />
 
@@ -107,19 +118,21 @@ function IntroScreen({ wordList, onStart }: { wordList: GameWordList; onStart: (
 function EndScreen({
   completedTrials,
   totalTrials,
+  gameSlug,
   onPlayAgain,
 }: {
   completedTrials: number;
   totalTrials: number;
+  gameSlug: string | undefined;
   onPlayAgain: () => void;
 }) {
   const t = useTranslations('player');
-  // 3 stars = 100% trials, 2 = >=66%, 1 = >=33%
   const ratio = completedTrials / Math.max(1, totalTrials);
   const stars = ratio >= 1 ? 3 : ratio >= 0.66 ? 2 : ratio >= 0.33 ? 1 : 0;
+  const tryNext = nextGameSlug(gameSlug);
 
   return (
-    <main className="bg-celebrate-gradient relative grid min-h-dvh place-items-center overflow-hidden px-4">
+    <main className="bg-celebrate-gradient relative grid min-h-dvh place-items-center overflow-hidden px-4 py-8">
       <div className="pointer-events-none absolute inset-0">
         <RiveReward intensity={1} />
       </div>
@@ -149,14 +162,26 @@ function EndScreen({
           ))}
         </div>
         <p className="text-foreground/65">{t('end.summary', { count: completedTrials })}</p>
-        <DuoButton
-          size="xl"
-          variant="primary"
-          onClick={onPlayAgain}
-          className="mt-2 w-full max-w-xs"
-        >
-          {t('end.again')}
-        </DuoButton>
+
+        <div className="mt-2 flex w-full max-w-xs flex-col gap-3">
+          <DuoButton size="xl" variant="primary" onClick={onPlayAgain}>
+            {t('end.again')}
+          </DuoButton>
+          <DuoButton asChild size="lg" variant="sky">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <Link href={`/play/demo?game=${tryNext}` as any}>
+              <Shuffle className="size-4" />
+              {t('end.tryAnother')}
+            </Link>
+          </DuoButton>
+          <DuoButton asChild size="lg" variant="ghost">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <Link href={'/' as any}>
+              <Home className="size-4" />
+              {t('end.home')}
+            </Link>
+          </DuoButton>
+        </div>
       </motion.div>
     </main>
   );
@@ -202,7 +227,7 @@ export function TrialCard({
   totalTrials,
   onAdvance,
 }: {
-  word: { text: string; imageUrl: string | null; audioUrl: string | null };
+  word: { text: string; textEn: string | null; imageUrl: string | null; audioUrl: string | null };
   trialIndex: number;
   totalTrials: number;
   onAdvance: () => void;
@@ -210,12 +235,16 @@ export function TrialCard({
   const t = useTranslations('player');
 
   const playAudio = () => {
-    if (!word.audioUrl) return;
-    if (typeof Audio === 'undefined') return;
-    const a = new Audio(word.audioUrl);
-    a.play().catch(() => {
-      // User-gesture autoplay restrictions; ignore.
-    });
+    // Prefer pre-recorded audio if uploaded (PR 15 media pipeline). Fall
+    // back to Web Speech API so the demo works zero-config.
+    if (word.audioUrl && typeof Audio !== 'undefined') {
+      const a = new Audio(word.audioUrl);
+      a.play().catch(() => {
+        void speakSpanish(word.text);
+      });
+      return;
+    }
+    void speakSpanish(word.text);
   };
 
   return (
@@ -245,9 +274,19 @@ export function TrialCard({
           </div>
         )}
 
-        <h2 className="text-foreground text-5xl font-extrabold tracking-tight sm:text-6xl">
-          {word.text}
-        </h2>
+        <div className="flex flex-col items-center gap-1">
+          <h2
+            className="text-foreground text-5xl font-extrabold tracking-tight sm:text-6xl"
+            lang="es"
+          >
+            {word.text}
+          </h2>
+          {word.textEn ? (
+            <p className="text-foreground/55 text-base font-medium" lang="en">
+              {word.textEn}
+            </p>
+          ) : null}
+        </div>
 
         <DuoButton variant="sky" size="md" onClick={playAudio} aria-label={t('trial.play')}>
           <Volume2 className="size-5" />
