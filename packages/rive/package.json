@@ -29,9 +29,9 @@
     "@habla/config": "workspace:*",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
-    "eslint": "^9.17.0",
+    "eslint": "^10.3.0",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "typescript": "^5.7.2"
+    "typescript": "^6.0.3"
   }
 }
